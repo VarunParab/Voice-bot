@@ -19,10 +19,7 @@ app = FastAPI()
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://*.vercel.app"  # This will allow all Vercel deployments
-    ],
+    allow_origins=["*"],  # Allow all origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -59,6 +56,8 @@ async def chat(message: ChatMessage):
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in chat endpoint: {str(e)}", exc_info=True)
+        logger.error(f"Error type: {type(e)}")
+        logger.error(f"Error details: {str(e)}")
         raise HTTPException(
             status_code=500,
             detail=f"An error occurred while processing your request: {str(e)}"
