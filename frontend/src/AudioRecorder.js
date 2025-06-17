@@ -48,7 +48,7 @@ const AudioRecorder = ({ onTranscriptionComplete }) => {
       const formData = new FormData();
       formData.append('file', audioBlob, 'audio.m4a');
 
-      const response = await fetch('http://localhost:8000/transcribe', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/transcribe`, {
         method: 'POST',
         body: formData,
       });
